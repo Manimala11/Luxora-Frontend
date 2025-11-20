@@ -4,11 +4,10 @@ import { toast } from 'react-toastify';
 import api from '../api/api';
 import { CartContext } from '../context/CartContext';
 import { scrollToTop } from '../utils/scrollUtils';
-
-import ShippingForm from '../components/Checkout/ShippingForm';
 import ProductSummary from '../components/Checkout/ProductSummary';
 import OrderSuccessModal from '../components/Checkout/OrderSuccessModal';
 import ProgressForOrder from './ProgressForOrder';
+import ShippingForm from '../components/checkout/ShippingForm'
 
 const Checkout = () => {
   const { cartItem, clearCart } = useContext(CartContext);
