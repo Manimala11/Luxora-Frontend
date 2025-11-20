@@ -5,6 +5,7 @@ import { useEffect, useState, useContext, useRef } from 'react';
 import handWave from '../../assets/hand-wave-icon.svg';
 import Profile from '../../assets/images.png';
 import { LayoutDashboard } from 'lucide-react';
+import { Popconfirm } from 'antd';
 
 const AdminPopup = () => {
   const { handleLogout, deleteUser, user } = useContext(UserContext);
@@ -82,14 +83,27 @@ const AdminPopup = () => {
             <i className='fa-solid fa-right-left'></i> Change Password
           </button>
 
-          <button
+          {/* <button
             className='dropdown-item text-danger mt-3 mx-3'
             onClick={() => {
               deleteUser();
               setOpen(false);
             }}>
             <i className='fa-solid fa-trash'></i> Delete Account
-          </button>
+          </button> */}
+
+          <Popconfirm
+            title='Are you sure to delete this user?'
+            onConfirm={() => {
+              deleteUser();
+              setOpen(false);
+            }}
+            okText='Yes'
+            cancelText='No'>
+            <button className='dropdown-item text-danger mt-3 mx-3'>
+              <i className='fa-solid fa-trash me-2'></i> Delete Account
+            </button>
+          </Popconfirm>
 
           <button
             className='dropdown-item mt-3 mx-3'

@@ -4,13 +4,15 @@ import { scrollToTop } from '../utils/scrollUtils';
 import { useEffect, useState, useContext, useRef } from 'react';
 import handWave from '../assets/hand-wave-icon.svg';
 import Profile from '../assets/images.png';
+import { Popconfirm } from 'antd';
+
 
 const Popup = () => {
   const { handleLogout, deleteUser, user } = useContext(UserContext);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef();
-  
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -76,14 +78,19 @@ const Popup = () => {
             }}>
             <i className='fa-solid fa-right-left'></i> Change Password
           </button>
-          <button
-            className='dropdown-item text-danger mt-3 mx-3'
-            onClick={() => {
+
+          <Popconfirm
+            title='Are you sure to delete this user?'
+            onConfirm={() => {
               deleteUser();
               setOpen(false);
-            }}>
-            <i className='fa-solid fa-trash'></i> Delete Account
-          </button>
+            }}
+            okText='Yes'
+            cancelText='No'>
+            <button className='dropdown-item text-danger mt-3 mx-3'>
+              <i className='fa-solid fa-trash me-2'></i> Delete Account
+            </button>
+          </Popconfirm>
           <button
             className='dropdown-item mt-3 mx-3'
             onClick={() => {

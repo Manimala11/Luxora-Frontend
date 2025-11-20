@@ -11,6 +11,8 @@ const UserProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+
 
   const getUserData = async () => {
     const token = localStorage.getItem('token');
@@ -30,6 +32,7 @@ const UserProvider = ({ children }) => {
   const getUsers = async () => {
     const token = localStorage.getItem('token');
     if (!token) return;
+    setLoadingUsers(true);
     try {
       const res = await api.get('/auth/users', {
         headers: {
@@ -40,6 +43,8 @@ const UserProvider = ({ children }) => {
     } catch (err) {
       console.error(err.response?.data?.message || err.message);
       toast.error('Failed to fetch users');
+    }finally{
+      setLoadingUsers(false)
     }
   };
 

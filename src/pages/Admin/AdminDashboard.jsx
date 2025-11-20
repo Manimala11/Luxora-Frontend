@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/api';
+import { Spin } from 'antd';
 
 const AdminDashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -8,7 +9,9 @@ const AdminDashboard = () => {
     totalRevenue: 0,
     recentOrders: [],
   });
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  
   const fetchDashboardData = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -27,6 +30,9 @@ const AdminDashboard = () => {
       }
     } catch (err) {
       console.error('Failed to fetch dashboard data:', err);
+      setError('Failed to load dashboard data');
+   }finally {
+      setLoading(false)
     }
   };
 
@@ -37,6 +43,18 @@ const AdminDashboard = () => {
     }, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  if (loading)
+    return (
+      <div
+        className='d-flex justify-content-center align-items-center text-primary'
+        style={{ height: '100vh' }}>
+        <Spin size='large' />
+      </div>
+    );
+  if (error)
+    return <p className='text-center text-danger'>{error}</p>;
+
 
   return (
     <div className='mt-2'>
@@ -94,10 +112,22 @@ const AdminDashboard = () => {
               dashboardData.recentOrders.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
-                  <td  style={{ color: order.customerName==='Unknown' ? 'red': 'inherit' }}>{order.customerName}</td>
+                  <td
+                    style={{
+                      color:
+                        order.customerName === 'Unknown' ? 'red' : 'inherit',
+                    }}>
+                    {order.customerName}
+                  </td>
                   <td>{order.products.join(', ')}</td>
                   <td>₹{order.totalPrice}</td>
-                  <td style={{ color: order.orderStatus==='Shipped' ? 'blue': 'inherit' }}>{order.orderStatus}</td>
+                  <td
+                    style={{
+                      color:
+                        order.orderStatus === 'Shipped' ? 'blue' : 'inherit',
+                    }}>
+                    {order.orderStatus}
+                  </td>
                 </tr>
               ))
             )}

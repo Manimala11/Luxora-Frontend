@@ -32,7 +32,7 @@ const AddProductModal = ({ open, onclose, onSuccess }) => {
       formData.append('description', values.description);
       formData.append('category', values.category);
       formData.append('price', values.price.toString());
-      formData.append('createdBy', user._id);
+
 
       const tagsArray = values.tags.split(',').map((tag) => tag.trim());
       formData.append('tags', JSON.stringify(tagsArray));
@@ -49,8 +49,6 @@ const AddProductModal = ({ open, onclose, onSuccess }) => {
         }
       }
 
-      // const sizeArray = values.size.split(',').map((tag) => tag.trim());
-      // formData.append('size', JSON.stringify(sizeArray));
       if (sizeStockList.length > 0) {
         formData.append('stock', '0');
         formData.append('sizeStock', JSON.stringify(sizeStockList));
