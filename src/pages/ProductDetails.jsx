@@ -1,7 +1,7 @@
 import { useParams,useNavigate } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { Spin, Carousel } from 'antd';
-import { CartContext } from '../context/cartContext';
+import { CartContext } from '../context/CartContext';
 import { useContext , useState} from 'react';
 import Profile from '../assets/images.png'
 import { toast } from 'react-toastify';

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { CartContext } from '../context/cartContext';
+import { CartContext } from '../context/CartContext';
 import emptyCart from '../assets/empty-cart.png';
 import { useNavigate, Link } from 'react-router-dom';
 import ProgressForOrder from './ProgressForOrder';
