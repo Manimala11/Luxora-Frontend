@@ -3,7 +3,7 @@ import SearchContext from '../context/SearchContext';
 import { Link } from 'react-router-dom';
 import { scrollToTop } from '../utils/scrollUtils';
 import { UserContext } from '../context/UserContext';
-import { CartContext } from '../context/cartContext';
+import { CartContext } from '../context/CartContext';
 import Popup from './Popup';
 
 const Header = () => {

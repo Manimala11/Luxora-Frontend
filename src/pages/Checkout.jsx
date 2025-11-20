@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import api from '../api/api';
-import { CartContext } from '../context/cartContext';
+import { CartContext } from '../context/CartContext';
 import { scrollToTop } from '../utils/scrollUtils';
 
 import ShippingForm from '../components/Checkout/ShippingForm';

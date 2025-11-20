@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import notFoundImg from '../assets/404.png';
-import { div, h1 } from 'framer-motion/client';
+
 
 const NotFound = () => {
   return (
