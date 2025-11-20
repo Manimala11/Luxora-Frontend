@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import api from '../api/api';
 import { CartContext } from '../context/CartContext';
 import { scrollToTop } from '../utils/scrollUtils';
-import ProductSummary from '../components/Checkout/ProductSummary';
-import OrderSuccessModal from '../components/Checkout/OrderSuccessModal';
+import ProductSummary from '../components/checkout/ProductSummary'
+import OrderSuccessModal from '../components/checkout/OrderSuccessModal';
 import ProgressForOrder from './ProgressForOrder';
 import ShippingForm from '../components/checkout/ShippingForm'
 
