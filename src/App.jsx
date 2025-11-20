@@ -8,7 +8,7 @@ import SearchProvider from './context/SearchProvider';
 import MyOrders from './pages/MyOrders';
 import ChangePassword from './pages/ChangePassword';
 import AddToCart from './pages/AddToCart';
-import { CartProvider } from './context/cartContext';
+import { CartProvider } from './context/CartContext';
 import { UserProvider } from './context/UserContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Checkout from './pages/Checkout';
