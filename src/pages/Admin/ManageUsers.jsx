@@ -25,9 +25,9 @@ const ManageUsers = () => {
 
   return (
     <div>
-      <h4>Users Management</h4>
+      <h4 className='text-center mb-3 mt-4'>Users Management</h4>
       <div className='table table-responsive w-100 text-center'>
-        <table className='table'>
+        <table className='table  table-hover'>
           <thead>
             <tr>
               <th>User Name</th>

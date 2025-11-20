@@ -37,7 +37,7 @@ const ManageOrders = () => {
       className='text-center table-responsive'
       style={{ fontSize: ' 0.85rem' }}>
       <h4 className='mt-3 mb-3'>Order History</h4>
-      <table className='table w-100 text-center'>
+      <table className='table w-100 table-hover text-center'>
         <thead>
           <tr>
             <th>Order ID</th>

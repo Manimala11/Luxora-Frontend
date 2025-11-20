@@ -50,7 +50,7 @@ const AddToCart = () => {
                 </tr>
               </thead>
               {cartItem.map((product) => (
-                <tbody key={product?._id}>
+                <tbody key={`${product._id}-${product.selectedSize}`}>
                   <tr>
                     <td className='text-start'>
                       <img

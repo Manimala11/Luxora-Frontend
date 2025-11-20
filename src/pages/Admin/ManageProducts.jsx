@@ -119,7 +119,14 @@ const ManageProducts = () => {
                   <td>{product?.title}</td>
                   <td>{product?.category}</td>
                   <td>₹{product?.price}</td>
-                  <td>{product?.stock}</td>
+                  <td>
+                    {product.sizeStock?.length > 0
+                      ? product.sizeStock.reduce(
+                          (total, s) => total + s.stock,
+                          0
+                        )
+                      : product.stock}
+                  </td>
                   <td>
                     <Button
                       type='primary'

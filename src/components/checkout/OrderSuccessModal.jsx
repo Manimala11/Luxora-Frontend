@@ -1,11 +1,17 @@
 import { Modal } from "antd";
 
-const OrderSuccessModal = ({open, orderDetails, totalPrice, onclose})=>{
+const OrderSuccessModal = ({open, orderDetails, onClose})=>{
+   const totalPrice = orderDetails
+    ? orderDetails.orderItems.reduce(
+        (total, item) => total + Number(item.price) * Number(item.quantity || 1),
+        0
+      )
+    : 0;
     return(
         <Modal
         open={open}
         footer={null}
-        onCancel={onclose}
+        onCancel={onClose}
         centered>
         {orderDetails && (
           <div>

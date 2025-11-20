@@ -4,6 +4,7 @@ import { Spin, Carousel } from 'antd';
 import { CartContext } from '../context/cartContext';
 import { useContext , useState} from 'react';
 import Profile from '../assets/images.png'
+import { toast } from 'react-toastify';
 
 
 const ProductDetails = () => {
@@ -36,12 +37,12 @@ const ProductDetails = () => {
   };
 
   const handleBuyNow = ()=>{
-    if (!selectedSize) return alert('Please select a size first!');
+    if (!selectedSize) return toast.info('Please select a size first!');
     navigate('/checkout', { state: { product: item?.product, quantity: 1, selectedSize } })
   }
 
   const handleAddToCart = () => {
-    if (!selectedSize) return alert('Please select a size first!');
+    if (!selectedSize) return toast.info('Please select a size first!');
     addToCart(item?.product, selectedSize); 
   };
 
@@ -92,7 +93,7 @@ const ProductDetails = () => {
               view reviews...
             </button>
           </p>
-          {item?.product?.size?.length >0 && (
+          {/* {item?.product?.size?.length >0 && (
             <div className='mt-3'>
               <h6>Select Size: </h6>
               <div className='d-flex gap-2 flex-wrap'>
@@ -101,6 +102,26 @@ const ProductDetails = () => {
                     key={size}
                     className={`btn btn-outline-primary ${selectedSize === size ? 'active' : ''}`}
                     onClick={() => setSelectedSize(size)}>{size}</button>
+                ))}
+              </div>
+            </div>
+          )} */}
+
+           {item?.product?.sizeStock?.length > 0 && (
+            <div className='mt-3'>
+              <h6>Select Size: </h6>
+              <div className='d-flex gap-2 flex-wrap'>
+                {item.product.sizeStock.map((opt) => (
+                  <button
+                    key={opt.size}
+                    disabled={opt.stock === 0}
+                    className={`btn btn-outline-primary ${
+                      selectedSize === opt.size ? 'active' : ''
+                    }`}
+                    onClick={() => setSelectedSize(opt.size)}
+                  >
+                    {opt.size} {opt.stock === 0 ? '(Out of Stock)' : `(${opt.stock})`}
+                  </button>
                 ))}
               </div>
             </div>

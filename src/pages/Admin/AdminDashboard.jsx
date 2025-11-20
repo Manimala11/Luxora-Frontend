@@ -73,7 +73,7 @@ const AdminDashboard = () => {
 
       <div className='text-center table-responsive'>
         <h4 className='mt-5 mb-3'>Recent Orders</h4>
-        <table className='table w-100 text-center'>
+        <table className='table table-hover w-100 text-center'>
           <thead>
             <tr>
               <th>Order ID</th>

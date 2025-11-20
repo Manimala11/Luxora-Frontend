@@ -20,11 +20,15 @@ const Checkout = () => {
 
   const buyNowProduct = location.state?.product;
   const buyNowQuantity = location.state?.quantity || 1;
-  const buyNowSize = location.state?.selectedSize
+  const buyNowSize = location.state?.selectedSize;
 
   const productList = buyNowProduct
     ? [{ ...buyNowProduct, quantity: buyNowQuantity, selectedSize: buyNowSize }]
-    : cartItem;
+    : cartItem.map((item) => ({
+        ...item,
+        price: Number(item.price),
+        quantity: Number(item.quantity || 1),
+      }));
 
   const [form, setForm] = useState({
     name: '',
@@ -106,12 +110,18 @@ const Checkout = () => {
 
       const orderData = {
         shippingInfo: {
-          ...form,
+          name: form.name,
           phoneNo: form.phone,
+          email: form.email,
+          address: form.address,
+          state: form.state,
+          country: form.country || 'India',
+          pincode: form.pincode,
         },
         orderItems: productList.map((item) => ({
           product: item._id,
           quantity: item.quantity,
+          selectedSize: item.selectedSize || null,
         })),
         paymentMethod: 'COD',
       };
@@ -149,7 +159,6 @@ const Checkout = () => {
       <OrderSuccessModal
         open={isModalOpen}
         orderDetails={orderDetails}
-        totalPrice={totalPrice}
         onClose={() => setIsModalOpen(false)}
       />
 
