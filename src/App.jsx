@@ -7,8 +7,8 @@ import { ToastContainer } from 'react-toastify';
 import SearchProvider from './context/SearchProvider';
 import MyOrders from './pages/MyOrders';
 import ChangePassword from './pages/ChangePassword';
-import AddToCart from './pages/AddToCart';
-import { CartProvider } from './context/cartContext';
+import AddToCart from './pages/AddToCart'
+import { CartProvider } from './context/CartContext';
 import { UserProvider } from './context/UserContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Checkout from './pages/Checkout';
@@ -114,7 +114,7 @@ const App = () => {
                   }
                 />
               </Route>
-              <Route path="*" element={<NotFound />} /> 
+              <Route path='*' element={<NotFound />} />
             </Routes>
             <ToastContainer
               position='top-center'
