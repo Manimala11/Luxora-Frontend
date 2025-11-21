@@ -6,8 +6,15 @@ const CategoryList = ({ preloadedData }) => {
   const { categoryName } = useParams();
   const [selectedCategory, setSelectedCategory] = useState(categoryName);
 
+  
   return (
-    <div className='d-none d-md-block border-end h-100 overflow-auto'>
+    <div className='d-none d-md-block  border-end h-100 overflow-auto'
+    style={{
+    position: "sticky",
+    top: "15%",
+    height: "100vh",
+    maxHeight: "100vh",  
+  }}>
       <h5 className='text-center mb-3 mt-2 text-primary'>Choose Category</h5>
       <ul>
         <li style={{ listStyleType: 'none' }} className='mb-2'>
