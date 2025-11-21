@@ -39,10 +39,7 @@ const CartProvider = ({ children }) => {
   }, [cartItem, user]);
 
   const addToCart = (product, selectedSize) => {
-    if (!user || !user._id) {
-      toast.warning('Please login to add products to cart!');
-      return;
-    }
+    
     const exist = cartItem.find((cart) => cart._id === product._id && cart.selectedSize === selectedSize);
 
     if (exist) {

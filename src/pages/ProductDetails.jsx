@@ -1,14 +1,15 @@
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 import { Spin, Carousel } from 'antd';
 import { CartContext } from '../context/CartContext';
-import { useContext , useState} from 'react';
-import Profile from '../assets/images.png'
+import { useContext, useState } from 'react';
+import Profile from '../assets/images.png';
 import { toast } from 'react-toastify';
-
+import { UserContext } from '../context/UserContext';
 
 const ProductDetails = () => {
-  const {addToCart} = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
+  const {user} = useContext(UserContext)
   const navigate = useNavigate();
   const { id } = useParams();
   const {
@@ -36,14 +37,27 @@ const ProductDetails = () => {
     if (reviewscroll) reviewscroll.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleBuyNow = ()=>{
-    if (!selectedSize) return toast.info('Please select a size first!');
-    navigate('/checkout', { state: { product: item?.product, quantity: 1, selectedSize } })
+  const handleBuyNow = () => {
+    if (!user || !user._id) {
+    return toast.error("Please login first!");
   }
+  if (item?.product?.sizeStock?.length > 0 && !selectedSize) {
+    return toast.info("Please select a size first!");
+  }
+    navigate('/checkout', {
+      state: { product: item?.product, quantity: 1, selectedSize },
+    });
+  };
 
   const handleAddToCart = () => {
-    if (!selectedSize) return toast.info('Please select a size first!');
-    addToCart(item?.product, selectedSize); 
+    if (!user || !user._id) {
+      return toast.error('Please login first!');
+    }
+    if (item?.product?.sizeStock?.length > 0 && !selectedSize) {
+      return toast.info('Please select a size first!');
+    }
+
+    addToCart(item?.product, selectedSize);
   };
 
   return (
@@ -62,16 +76,19 @@ const ProductDetails = () => {
               </div>
             ))}
           </Carousel>
-          
-          
+
           <div className='row mt-3'>
             <div className='col-6'>
-              <button className='btn rounded-2 btn-primary w-100'  onClick={handleAddToCart}>
+              <button
+                className='btn rounded-2 btn-primary w-100'
+                onClick={handleAddToCart}>
                 ADD TO CART
               </button>
             </div>
             <div className='col-6'>
-              <button className='btn rounded-2 btn-primary w-100' onClick={handleBuyNow}>
+              <button
+                className='btn rounded-2 btn-primary w-100'
+                onClick={handleBuyNow}>
                 BUY NOW
               </button>
             </div>
@@ -107,7 +124,7 @@ const ProductDetails = () => {
             </div>
           )} */}
 
-           {item?.product?.sizeStock?.length > 0 && (
+          {item?.product?.sizeStock?.length > 0 && (
             <div className='mt-3'>
               <h6>Select Size: </h6>
               <div className='d-flex gap-2 flex-wrap'>
@@ -118,9 +135,9 @@ const ProductDetails = () => {
                     className={`btn btn-outline-primary ${
                       selectedSize === opt.size ? 'active' : ''
                     }`}
-                    onClick={() => setSelectedSize(opt.size)}
-                  >
-                    {opt.size} {opt.stock === 0 ? '(Out of Stock)' : `(${opt.stock})`}
+                    onClick={() => setSelectedSize(opt.size)}>
+                    {opt.size}{' '}
+                    {opt.stock === 0 ? '(Out of Stock)' : `(${opt.stock})`}
                   </button>
                 ))}
               </div>
@@ -132,16 +149,24 @@ const ProductDetails = () => {
             {item?.product?.reviews && item?.product?.reviews.length > 0 ? (
               item?.product?.reviews?.map((review, index) => (
                 <div key={index}>
-                  <p className='mb-2'> <img src={Profile} width={30} height={30} className='rounded-circle'/>{review?.name}</p>
-                 <p className='ms-5 mb-1'>
-                  Rating: <span className='badge rounded-pill bg-primary'>
-                     {review?.rating}
-                    </span>
-                 </p>
-                    
-                     <p className='text-secondary ms-5'>
-                    {review?.comment}
+                  <p className='mb-2'>
+                    {' '}
+                    <img
+                      src={Profile}
+                      width={30}
+                      height={30}
+                      className='rounded-circle'
+                    />
+                    {review?.name}
                   </p>
+                  <p className='ms-5 mb-1'>
+                    Rating:{' '}
+                    <span className='badge rounded-pill bg-primary'>
+                      {review?.rating}
+                    </span>
+                  </p>
+
+                  <p className='text-secondary ms-5'>{review?.comment}</p>
                   <hr />
                 </div>
               ))
