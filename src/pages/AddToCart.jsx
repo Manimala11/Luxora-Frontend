@@ -36,7 +36,7 @@ const AddToCart = () => {
     <div className='container'> 
       <div className='row'>
          <ProgressForOrder/>
-        <div className='col-md-7'>
+        <div className='col-md-8'>
           <h4 className='text-primary text-center my-3'>Product Details</h4>
           <div className='table-responsive '>
             <table className='table table-bordered text-center align-middle'>
@@ -52,7 +52,7 @@ const AddToCart = () => {
               {cartItem.map((product) => (
                 <tbody key={`${product._id}-${product.selectedSize}`}>
                   <tr>
-                    <td className='text-start'>
+                    <td className='text-center'>
                       <img
                         src={product?.images?.[0]}
                         alt={product?.title}

@@ -4,7 +4,7 @@ import AdminPopup from './AdminPopup';
 
 const AdminHeader = () => {
   return (
-    <nav className='navbar navbar-expand-md navbar-light bg-light d-flex justify-content-between ' style={{zIndex: 20}}>
+    <nav className='navbar navbar-expand-md navbar-light bg-light d-flex justify-content-between px-4' style={{zIndex: 20}}>
       <div className='container-fluid'>
           <Link
             className='navbar-brand text-primary fw-bold'

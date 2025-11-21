@@ -10,11 +10,11 @@ const AdminHeaderFooterLayout = () => {
       <div className='container-fluid p-0 bg-light'>
          
         <div className='row g-0'>
-          <div className='col-md-3 px-0'>
+          <div className='col-md-2 px-0'>
             <AdminSidebar/>
           </div>
 
-          <div className='col-md-9 px-4'>
+          <div className='col-md-10 px-4'>
             
             <Outlet />
             <AdminFooter/>

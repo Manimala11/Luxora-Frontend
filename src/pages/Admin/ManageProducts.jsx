@@ -38,7 +38,7 @@ const ManageProducts = () => {
 
   return (
     <div>
-      <div className='mt-4 d-block d-md-flex justify-content-between mx-4 mb-3'>
+      <div className='mt-4 d-block d-md-flex justify-content-between mx-5 mb-3'>
         <h4>Product Management</h4>
         <Button
           className='btn btn-primary shadow-sm'
@@ -137,9 +137,7 @@ const ManageProducts = () => {
                       }}>
                       <i className='fa-regular fa-pen-to-square'></i>
                     </Button>
-                    {/* <Button className=' m-2 btn btn-light btn-outline-primary' onClick={()=>handleDelete(product._id)}>
-                      <i className='fa-solid fa-trash fa-sm text-danger'></i>
-                    </Button> */}
+                    
                     <Popconfirm
                       title='Are you sure you want to delete this product?'
                       onConfirm={() => handleDelete(product._id)}
