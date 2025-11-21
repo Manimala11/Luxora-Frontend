@@ -1,11 +1,9 @@
-import { useState, useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { useState } from 'react';
 import api from '../../api/api';
 import { toast } from 'react-toastify';
 import { Button, Form, Input, Modal, InputNumber } from 'antd';
 
 const AddProductModal = ({ open, onclose, onSuccess }) => {
-  const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [form] = Form.useForm();
