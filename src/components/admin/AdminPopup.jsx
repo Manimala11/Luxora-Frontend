@@ -55,7 +55,7 @@ const AdminPopup = () => {
             <img
               src={handWave}
               className='mb-2'
-              alt='handwave'
+              alt=''
               height={32}
               width={32}
             />
