@@ -60,9 +60,9 @@ const ManageUsers = () => {
                     )}
                   </td>
 
-                  <td>
+                  <td className='text-start'>
                     {currentUser?.role === 'admin' && (
-                      <div className='d-flex gap-2 justify-content-center'>
+                      <div className='d-flex gap-2 '>
                         <Popconfirm
                           title={`Are you sure to ${
                             u.isBlocked ? 'unblock' : 'block'

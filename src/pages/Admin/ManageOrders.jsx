@@ -58,7 +58,7 @@ const ManageOrders = () => {
                 <td  style={{ color: order.userId ? 'inherit' : 'red' }}>{order.userId?.name || "Deleted user"}</td>
                 <td>
                   {order.orderItems
-                    ?.map((item) => item.product?.title)
+                    ?.map((item) => item?.product?.title || 'Deleted Product')
                     .join(',')}
                 </td>
                 <td>{order.totalPrice}</td>

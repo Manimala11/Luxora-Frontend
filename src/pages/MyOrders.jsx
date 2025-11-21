@@ -71,7 +71,7 @@ const MyOrders = () => {
             <div key={id} className='border-bottom py-3'>
               <div className='d-flex align-item-center py-2'>
                 <Link
-                to={`/product/${item.product._id}`} onClick={scrollToTop}
+                to={item?.product?._id ? `/product/${item.product._id}` : "#"} onClick={scrollToTop}
                   className='d-flex align-items-center text-decoration-none text-dark flex-grow-1'
                  >
                   <img

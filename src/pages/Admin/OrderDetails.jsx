@@ -85,13 +85,13 @@ const OrderDetails = () => {
               className='d-flex align-items-center mb-3 border-bottom pb-2'>
               <img
                 src={item.product?.images?.[0]}
-                alt={item.product?.title}
+                alt={item.product?.title || 'Deleted Products'}
                 className='img-thumbnail me-3'
                 style={{ width: '80px', height: '80px', objectFit: 'cover' }}
               />
               <div>
                 <p className='mb-1'>
-                  <strong>{item.product?.title || item.name}</strong>
+                  <strong>{item.product?.title || 'Deleted Products' }</strong>
                 </p>
                 <p className='mb-0'>
                   Qty: {item.quantity} | ₹{item.price}

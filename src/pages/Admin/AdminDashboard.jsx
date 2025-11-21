@@ -119,7 +119,7 @@ const AdminDashboard = () => {
                     }}>
                     {order.customerName}
                   </td>
-                  <td>{order.products.join(', ')}</td>
+                  <td>{order.products.join(', ') || 'Deleted product'}</td>
                   <td>₹{order.totalPrice}</td>
                   <td
                     style={{
