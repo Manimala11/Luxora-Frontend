@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import { Input, Select } from 'antd';
+import { Input} from 'antd';
 import { scrollToTop } from '../utils/scrollUtils';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../api/api';
 import { toast } from 'react-toastify';
 import { triggerAuthUpdate } from '../utils/authUtils';
 
-const { Option } = Select;
 
 const Register = () => {
   const [form, setForm] = useState({

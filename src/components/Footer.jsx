@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { scrollToTop, navigateToProducts } from '../utils/scrollUtils';
+
 const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,11 +24,7 @@ const Footer = () => {
               SHOP NOW
             </button>
           </div>
-          <div className='mt-3'>
-            <button className='border-0 bg-light text-secondary fw-bold'>
-              Become a seller
-            </button>
-          </div>
+          
         </div>
         <div className='col-md-4 mt-2 text-center'>
           <h4 className='text-primary'>Reach out to us</h4>

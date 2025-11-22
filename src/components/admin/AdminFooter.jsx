@@ -1,4 +1,5 @@
 import { scrollToTop } from '../../utils/scrollUtils';
+
 const AdminFooter = () => {
   return (
     <div className='container-fluid bg-light'>

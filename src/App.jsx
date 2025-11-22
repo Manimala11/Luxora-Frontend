@@ -1,4 +1,3 @@
-import CategoryPage from './pages/CategoryPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductDetails from './pages/ProductDetails';
 import Login from './pages/Login';
@@ -7,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import SearchProvider from './context/SearchProvider';
 import MyOrders from './pages/MyOrders';
 import ChangePassword from './pages/ChangePassword';
-import AddToCart from './pages/AddToCart'
+import AddToCart from './pages/AddToCart';
 import { CartProvider } from './context/CartContext';
 import { UserProvider } from './context/UserContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -34,7 +33,7 @@ const App = () => {
               <Route
                 path='/changePassword'
                 element={
-                  <ProtectedRoute>
+                  <ProtectedRoute>        
                     <ChangePassword />
                   </ProtectedRoute>
                 }
@@ -43,10 +42,6 @@ const App = () => {
               <Route element={<HeaderFooterLayout />}>
                 <Route path='/' element={<HomeRedirect />} />
                 <Route path='/product/:id' element={<ProductDetails />} />
-                <Route
-                  path='/category/:categoryName'
-                  element={<CategoryPage />}
-                />
                 <Route
                   path='/myOrders'
                   element={

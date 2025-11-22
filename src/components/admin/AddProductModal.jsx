@@ -108,14 +108,7 @@ const AddProductModal = ({ open, onclose, onSuccess }) => {
           name='tags'
           rules={[{ required: true, message: 'Please add at least one tag' }]}>
           <Input placeholder='Enter tags separated by commas' />
-        </Form.Item>
-
-        {/* <Form.Item
-          label='Size'
-          name='size'
-          rules={[{ required: true, message: 'Please add at least one size' }]}>
-          <Input placeholder='Enter sizes separated by commas' />
-        </Form.Item> */}
+        </Form.Item>      
 
         <div className='border p-2 rounded mb-3'>
           <h4>Size-wise Stock (optional)</h4>
@@ -143,6 +136,7 @@ const AddProductModal = ({ open, onclose, onSuccess }) => {
             + Add Size
           </Button>
         </div>
+
         <Form.Item label='Price' name='price' rules={[{ required: true }]}>
           <InputNumber className='w-100' min={1} />
         </Form.Item>
@@ -152,14 +146,6 @@ const AddProductModal = ({ open, onclose, onSuccess }) => {
             <InputNumber className='w-100' min={1} />
           </Form.Item>
         )}
-
-        {/* <Form.Item
-          label='Stock'
-          name='stock'
-          rules={[{ required: true, message: 'Price is required' , type: 'number', min: 1, message: 'Price must be at least 1'}]  }
-         >
-          <InputNumber className='w-100' min={1} />
-        </Form.Item> */}
 
         <Form.Item
           label='Images'

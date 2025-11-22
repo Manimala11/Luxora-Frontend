@@ -7,7 +7,7 @@ const ShippinForm = ({form, errors, handleChange, handleSubmit, resetForm}) =>{
         <form className='form-control'>
              <h4 className='text-center mb-4'>Shipping Info</h4>
               <div className='my-2 '>
-                <label htmlFor='name' className='form-label fw-bold'>
+                <label htmlFor='name' className='form-label fw-bold  d-block'>
                   Full Name: <sup className='text-danger'>*</sup>
                 </label>
                 <input
@@ -26,7 +26,7 @@ const ShippinForm = ({form, errors, handleChange, handleSubmit, resetForm}) =>{
               </div>
 
               <div className='my-2'>
-                <label htmlFor='phonenumber' className='form-label fw-bold'>
+                <label htmlFor='phonenumber' className='form-label fw-bold  d-block'>
                   Phone No: <sup className='text-danger'>*</sup>
                 </label>
                 <input
@@ -47,7 +47,7 @@ const ShippinForm = ({form, errors, handleChange, handleSubmit, resetForm}) =>{
               </div>
 
               <div className='my-2'>
-                <label htmlFor='email' className='form-label fw-bold'>
+                <label htmlFor='email' className='form-label fw-bold d-block'>
                   Email: <sup className='text-danger'>*</sup>
                 </label>
                 <input
@@ -66,7 +66,7 @@ const ShippinForm = ({form, errors, handleChange, handleSubmit, resetForm}) =>{
               </div>
 
               <div className='my-2'>
-                <label htmlFor='address' className='form-label fw-bold'>
+                <label htmlFor='address' className='form-label fw-bold  d-block'>
                   Address: <sup className='text-danger'>*</sup>
                 </label>
                 <textarea
@@ -86,7 +86,7 @@ const ShippinForm = ({form, errors, handleChange, handleSubmit, resetForm}) =>{
               </div>
 
               <div className='my-2'>
-                <label htmlFor='states' className='form-label fw-bold'>
+                <label htmlFor='states' className='form-label fw-bold  d-block'>
                   Select State <sup className='text-danger'>*</sup>
                 </label>
                 <Select
@@ -111,7 +111,7 @@ const ShippinForm = ({form, errors, handleChange, handleSubmit, resetForm}) =>{
 
               <div className='row my-2 '>
                 <div className='col-6'>
-                  <label htmlFor='country' className='form-label fw-bold'>
+                  <label htmlFor='country' className='form-label fw-bold  d-block'>
                     Country:
                   </label>
                   <input
@@ -124,7 +124,7 @@ const ShippinForm = ({form, errors, handleChange, handleSubmit, resetForm}) =>{
                 </div>
 
                 <div className='col-6'>
-                  <label htmlFor='pincode' className='form-label fw-bold'>
+                  <label htmlFor='pincode' className='form-label fw-bold  d-block'>
                     Pincode: <sup className='text-danger'>*</sup>
                   </label>
                   <input
