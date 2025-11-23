@@ -16,12 +16,10 @@ const ManageProducts = () => {
 
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const itemsPerPage = 5;
 
   const { data, loading, error } = useFetch('product/admin', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+     headers: { Authorization: `Bearer ${token}` },
   });
 
   useEffect(() => {
@@ -29,24 +27,29 @@ const ManageProducts = () => {
   }, [data]);
 
   useEffect(() => {
-  if (currentPage > Math.ceil(products.length / itemsPerPage) && currentPage !== 1) {
-    setCurrentPage(currentPage - 1);
-  }
+    const maxPage = Math.ceil(products.length / itemsPerPage) || 1;
+    if (currentPage > maxPage) setCurrentPage(maxPage);
 }, [products]);
+
 useEffect(() => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }, [currentPage]);
 
+const getStock = (product) =>
+    product.sizeStock?.length > 0
+      ? product.sizeStock.reduce((total, s) => total + s.stock, 0)
+      : product.stock;
 
-
-  const handleDelete = async (productId) => {
+const handleDelete = async (productId) => {
     try {
       await api.delete(`product/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Product deleted successfully!');
-      setProducts(products.filter((p) => p._id !== productId));
-      setCurrentPage(1);
+      const updatedProducts = products.filter((p) => p._id !== productId);
+      setProducts(updatedProducts);
+      const maxPage = Math.ceil(updatedProducts.length / itemsPerPage) || 1;
+      setCurrentPage((prev) => Math.min(prev, maxPage));
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to delete product');
     }
@@ -131,12 +134,11 @@ useEffect(() => {
             )}
             {!loading &&
               !error &&
-              currentProducts.length > 0 &&
               currentProducts.map((product) => (
                 <tr key={product?._id}>
                   <td>
                     <img
-                      src={product?.images?.[0]}
+                      src={product?.images?.[0] || '/placeholder.png'}
                       alt={product.title}
                       width={80}
                       height={80}
@@ -145,14 +147,7 @@ useEffect(() => {
                   <td>{product?.title}</td>
                   <td>{product?.category}</td>
                   <td>₹{product?.price}</td>
-                  <td>
-                    {product.sizeStock?.length > 0
-                      ? product.sizeStock.reduce(
-                          (total, s) => total + s.stock,
-                          0
-                        )
-                      : product.stock}
-                  </td>
+                  <td>{getStock(product)}</td>
                   <td>
                     <Button
                       type='primary'

@@ -6,7 +6,6 @@ const HomeRedirect = () => {
   try{
      user = JSON.parse(localStorage.getItem('user'));
   } catch(err){}
-  if (!user) return <Home />;
   if (user?.role === 'admin') return <Navigate to='/admin/dashboard' replace />;
   return <Home />;
 };

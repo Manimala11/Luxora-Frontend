@@ -1,23 +1,22 @@
 import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-let Toast = false;
+let toastShown = false;
 
 const ProtectedRoute = ({ children, adminOnly = false, redirectIfAdminHome = false }) => {
   const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
-
+  const user = JSON.parse(localStorage.getItem('user') || '{}')
   if (!token) {
-    if (!Toast) {
+    if (!toastShown) {
       toast.info('Please login first');
-      Toast = true;
+      toastShown = true;
     }
     return <Navigate to='/login' replace />;
   }
   if (adminOnly && user?.role !== 'admin') {
-    if (!Toast) {
+    if (!toastShown) {
       toast.error('Unauthorized access');
-      Toast = true;
+      toastShown = true;
     }
     return <Navigate to='/' replace />;
   }
@@ -26,7 +25,7 @@ const ProtectedRoute = ({ children, adminOnly = false, redirectIfAdminHome = fal
   }
 
 
-  Toast = false;
+  toastShown = false;
 
   return children;
 };

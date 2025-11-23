@@ -4,7 +4,7 @@ const AdminFooter = () => {
   return (
     <div className='container-fluid bg-light'>
       <hr />
-      <div className='row mt-3 p-2 d-flex mt-2'>
+      <div className='row mt-3 p-2 d-flex'>
         <div className='col-md-6 text-center align-items-center'>
           <button
             className='border-0 bg-light text-primary fw-bold h1'
