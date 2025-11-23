@@ -29,7 +29,6 @@ const AdminSidebar = () => {
           zIndex: 10,
           height: '100vh',
           // width: '250px',
-
           borderRight: '1px solid #dee2e6',
           overflowY: 'auto',
         }}>
