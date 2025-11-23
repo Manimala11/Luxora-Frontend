@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useMemo } from 'react';
 import SearchContext from '../context/SearchContext';
 import Products from '../components/Products';
 import Banner from '../components/Banner';
@@ -14,34 +14,34 @@ const Home = () => {
   const category = useFetch('/categories');
   const products = useFetch('/product');
   const [selectedCategory, setSelectedCategory] = useState('All');
-
-  // Filter products by search + category
-  const filteredProducts = products.data.products?.filter((item) => {
-    const matchesSearch = searchQuery
-      ? item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (item.tags &&
-          item.tags.some((tag) =>
+   
+  const filteredProducts = useMemo(() => {
+    return products.data?.products?.filter((item) => {
+      const matchesSearch = searchQuery
+        ? item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (item.tags?.some((tag) =>
             tag.toLowerCase().includes(searchQuery.toLowerCase())
           ))
-      : true;
+        : true;
 
-    const matchesCategory =
-      selectedCategory === 'All' || item.category === selectedCategory;
+      const matchesCategory =
+        selectedCategory === 'All' || item.category === selectedCategory;
 
-    return matchesSearch && matchesCategory;
-  });
+      return matchesSearch && matchesCategory;
+    });
+  }, [products.data, searchQuery, selectedCategory]);
 
   useEffect(() => {
     if (!products.loading && location.state?.scrollToProduct) {
-      const scrollAfterRender = setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         const productsSection = document.querySelector('.productscroll');
         if (productsSection) {
           productsSection.scrollIntoView({ behavior: 'smooth' });
         }
         window.history.replaceState({}, document.title);
       }, 100);
-      return () => clearTimeout(scrollAfterRender);
+      return () => clearTimeout(timeoutId);
     }
   }, [products.loading, location.state]);
 
@@ -76,7 +76,7 @@ const Home = () => {
 
           <div className='col-md-9'>
              <h2 className='text-center text-primary mb-4'>Our Products</h2>
-            {filteredProducts && filteredProducts.length > 0 ? (
+            {filteredProducts?.length > 0 ? (
               <Products products={filteredProducts} />
             ) : (
               <p className='text-center text-danger'>No products found</p>

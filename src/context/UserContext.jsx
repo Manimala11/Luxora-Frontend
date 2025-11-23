@@ -9,19 +9,16 @@ const UserContext = createContext();
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
-
+  const navigate = useNavigate();
 
   const getUserData = async () => {
     const token = localStorage.getItem('token');
     if (!token) return;
     try {
       const res = await api.get('/auth/user', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}`},
       });
       setUser(res?.data?.user);
     } catch (err) {
@@ -54,7 +51,7 @@ const UserProvider = ({ children }) => {
     const handleTokenExpired = () => {
       toast.info('Session expired. Please log in again.');
       handleLogout(false);
-      navigate('/');
+      setTimeout(() => navigate('/'), 0);
     };
     window.addEventListener('tokenExpired', handleTokenExpired);
 
@@ -62,12 +59,10 @@ const UserProvider = ({ children }) => {
       cleanup();
       window.removeEventListener('tokenExpired', handleTokenExpired);
     };
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      getUserData();
-    }
+    if (isLoggedIn) getUserData();
   }, [isLoggedIn]);
 
   const deleteUser = async (userId = null) => {
@@ -90,14 +85,12 @@ const UserProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Failed to delete user');
-      toast.error('Failed to delete user');
+      toast.error(error.response?.data?.message || 'Failed to delete user');
     }
   };
 
   const handleLogout = async (showToast = true) => {
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
-
     setUser(null);
     setIsLoggedIn(false);
     triggerAuthUpdate();
@@ -110,19 +103,16 @@ const UserProvider = ({ children }) => {
       toast.error('You cannot block yourself!');
       return;
     }
+    const token = localStorage.getItem('token');
+    if (!token) return toast.error("Session expired. Please login again");
     try {
-      const token = localStorage.getItem('token');
-      if (!userId) return;
       const res = await api.patch(
         `/auth/block/${userId}`,
         {},
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
-
       toast.info(res.data.message);
       getUsers();
     } catch (err) {
@@ -137,25 +127,26 @@ const UserProvider = ({ children }) => {
       toast.error('You are already admin!');
       return;
     }
-
+    const token = localStorage.getItem('token');
+     if (!token) return toast.error("Session expired. Please login again");
     try {
-      const token = localStorage.getItem('token');
       const res = await api.patch(
         `/auth/make-admin/${userId}`,
         {},
         {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       toast.success(res.data.message);
 
-      setUsers(prevUsers=>
-        prevUsers.map(u =>
-          u._id === userId ? {...u, role:'admin'} : u
-        )
+      setUsers(prev=>
+        prev.map(u => u._id === userId ? {...u, role:'admin'} : u )
       )
+
+      if (userId === user?._id) {
+        setUser((prev) => ({ ...prev, role: 'admin' }));
+      }
+
     } catch (err) {
       console.error(err);
       toast.error(err.message || 'Failed to update user role');

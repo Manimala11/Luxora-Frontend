@@ -7,8 +7,7 @@ import { CartContext } from '../context/CartContext';
 import Popup from './Popup';
 
 const Header = () => {
-  const {count } = useContext(CartContext);
-
+  const { count } = useContext(CartContext);
   const { searchInput, setSearchInput, handleSearch } =
     useContext(SearchContext);
   const { isLoggedIn } = useContext(UserContext);
@@ -32,8 +31,9 @@ const Header = () => {
                 placeholder='Search Products'
                 value={searchInput}
                 onChange={(e) => {
-                  setSearchInput(e.target.value);
-                  handleSearch();
+                  const value = e.target.value;
+                  setSearchInput(value);
+                  handleSearch(value);
                 }}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               />
@@ -63,10 +63,7 @@ const Header = () => {
           id='navbarNav'>
           <ul className='navbar-nav d-flex flex-row  align-items-center justify-content-evenly'>
             <li className='nav-item me-3'>
-              <Link
-                className='nav-link'
-                to={'/myOrders'}
-                onClick={scrollToTop}>
+              <Link className='nav-link' to={'/myOrders'} onClick={scrollToTop}>
                 <i className='fa-solid fa-bag-shopping me-2 fa-xl text-primary'></i>
               </Link>
             </li>
@@ -75,13 +72,13 @@ const Header = () => {
                 className='nav-link btnposition'
                 to={'/addToCart'}
                 onClick={scrollToTop}>
-                <i className="bi bi-cart text-bold fs-4 text-primary"></i>
-                <div className="countforcart text-dark">{count}</div>
+                <i className='bi bi-cart text-bold fs-4 text-primary'></i>
+                <div className='countforcart text-dark'>{count}</div>
               </Link>
             </li>
             <li className='nav-item'>
               {isLoggedIn ? (
-                <Popup/>
+                <Popup />
               ) : (
                 <Link
                   className='nav-link border border-2 border-primary rounded px-3'

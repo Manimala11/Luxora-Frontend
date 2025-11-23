@@ -3,7 +3,7 @@ import api from '../../api/api';
 import { toast } from 'react-toastify';
 import { Button, Form, Input, Modal, InputNumber } from 'antd';
 
-const AddProductModal = ({ open, onclose, onSuccess }) => {
+const AddProductModal = ({ open, onClose, onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState([]);
   const [form] = Form.useForm();
@@ -80,7 +80,7 @@ const AddProductModal = ({ open, onclose, onSuccess }) => {
     }
   };
   return (
-    <Modal title='Add New Product' open={open} onCancel={onclose} footer={null}>
+    <Modal title='Add New Product' open={open} onCancel={onClose} footer={null}>
       <Form layout='vertical' onFinish={handleSubmit}>
         <Form.Item
           label='Title'

@@ -7,13 +7,14 @@ const ProductContext = createContext();
 const ProductProvider = ({ children }) => {
   const [loadingProduct, setLoadingProduct] = useState(false);
   const submitReview = async (productId, rating, comment) => {
-    try {
-      setLoadingProduct(true);
       const token = localStorage.getItem('token');
       if (!token) {
         toast.error('Please login first');
-        return;
+        return null;
       }
+       
+      setLoadingProduct(true);
+      try {
       const { data } = await api.patch(
         `/product/${productId}/review`,
         { rating, comment },
@@ -26,6 +27,7 @@ const ProductProvider = ({ children }) => {
       return data.product;
     } catch (error) {
       toast.error(error.response?.data?.message || 'Something went wrong');
+      return null;
     } finally {
       setLoadingProduct(false);
     }

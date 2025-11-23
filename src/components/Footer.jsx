@@ -7,7 +7,7 @@ const Footer = () => {
 
   return (
     <div className='container-fluid bg-light'>
-      <div className='row mt-3 p-2 d-flex mt-2'>
+      <div className='row mt-3 p-2 d-flex'>
         <div className='col-md-4 text-center align-items-center'>
           <button
             className='border-0 bg-light text-primary fw-bold h1'

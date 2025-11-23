@@ -1,41 +1,66 @@
 import { useState, useEffect } from 'react';
-import { Button } from 'antd';
+import { Button, Pagination, Popconfirm } from 'antd';
 import useFetch from '../../hooks/useFetch';
 import AddProductModal from '../../components/admin/AddProductModal';
 import EditProductModal from '../../components/admin/EditProductModal';
 import api from '../../api/api';
 import { toast } from 'react-toastify';
-import { Popconfirm } from 'antd';
+
 
 const ManageProducts = () => {
   const token = localStorage.getItem('token');
+
   const [openAdd, setOpenAdd] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+
   const { data, loading, error } = useFetch('product/admin', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
+  useEffect(() => {
+    if (data?.products) setProducts(data.products);
+  }, [data]);
+
+  useEffect(() => {
+  if (currentPage > Math.ceil(products.length / itemsPerPage) && currentPage !== 1) {
+    setCurrentPage(currentPage - 1);
+  }
+}, [products]);
+useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, [currentPage]);
+
+
+
   const handleDelete = async (productId) => {
     try {
-      const token = localStorage.getItem('token');
       await api.delete(`product/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success('Product deleted successfully!');
       setProducts(products.filter((p) => p._id !== productId));
+      setCurrentPage(1);
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to delete product');
     }
   };
 
-  useEffect(() => {
-    if (data?.products) setProducts(data.products);
-  }, [data]);
+  const handlePageChange = (page) => {
+  setCurrentPage(page);
+  window.scrollTo({ top: 0, behavior: 'smooth' }); 
+};
 
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+  
   return (
     <div>
       <div className='mt-4 d-block d-md-flex justify-content-between mx-5 mb-3'>
@@ -48,9 +73,10 @@ const ManageProducts = () => {
       </div>
       <AddProductModal
         open={openAdd}
-        onclose={() => setOpenAdd(false)}
+        onClose={() => setOpenAdd(false)}
         onSuccess={(newProduct) => {
           setProducts([newProduct, ...products]);
+          setCurrentPage(1)
           setOpenAdd(false);
         }}
       />
@@ -96,7 +122,7 @@ const ManageProducts = () => {
                 </td>
               </tr>
             )}
-            {!loading && !error && products.length === 0 && (
+            {!loading && !error && currentProducts.length === 0 && (
               <tr>
                 <td colSpan='6' className='text-danger text-center'>
                   No products found
@@ -105,8 +131,8 @@ const ManageProducts = () => {
             )}
             {!loading &&
               !error &&
-              products.length > 0 &&
-              products.map((product) => (
+              currentProducts.length > 0 &&
+              currentProducts.map((product) => (
                 <tr key={product?._id}>
                   <td>
                     <img
@@ -143,7 +169,7 @@ const ManageProducts = () => {
                       onConfirm={() => handleDelete(product._id)}
                       okText='Yes'
                       cancelText='No'>
-                      <Button type='danger' className=' m-2'>
+                      <Button type='danger' className= 'm-2'>
                         <i className='fa-solid fa-trash fa-sm text-danger'></i>
                       </Button>
                     </Popconfirm>
@@ -153,6 +179,17 @@ const ManageProducts = () => {
           </tbody>
         </table>
       </div>
+      {products.length > itemsPerPage && (
+        <div className='d-flex justify-content-end mt-3'>
+          <Pagination 
+            current={currentPage}
+            pageSize={itemsPerPage}
+            total={products.length}
+            onChange={handlePageChange}
+            showSizeChanger ={false}
+          />
+        </div>
+      )}
     </div>
   );
 };
