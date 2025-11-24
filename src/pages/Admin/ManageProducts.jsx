@@ -67,7 +67,7 @@ const handleDelete = async (productId) => {
   return (
     <div>
       <div className='mt-4 d-block d-md-flex justify-content-between mx-5 mb-3'>
-        <h4 className='text-primary'>Product Management</h4>
+        <h4 className='text-primary mb-3 mb-md-0'>Product Management</h4>
         <Button
           className='btn btn-primary shadow-sm pb-3'
           onClick={() => setOpenAdd(true)}>

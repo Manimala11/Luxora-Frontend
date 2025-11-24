@@ -42,7 +42,7 @@ const ManageUsers = () => {
 
   return (
     <div>
-      <h4 className='text-center mb-3 mt-4 text-primary'>Users Management</h4>
+      <h4 className='text-center mb-3 mt-4 text-primary px-3 px-md-0'>Users Management</h4>
       <div className='table table-responsive w-100 text-center'>
         <table className='table table-striped table-hover'>
           <thead>

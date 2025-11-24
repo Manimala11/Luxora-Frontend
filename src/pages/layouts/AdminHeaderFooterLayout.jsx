@@ -14,7 +14,7 @@ const AdminHeaderFooterLayout = () => {
             <AdminSidebar/>
           </div>
 
-          <div className='col-md-9 col-lg-10 pe-5'>
+          <div className='col-md-9 col-lg-10'>
             
             <Outlet />
             <AdminFooter/>

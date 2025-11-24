@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
+
   const fetchDashboardData = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -31,8 +31,8 @@ const AdminDashboard = () => {
     } catch (err) {
       console.error('Failed to fetch dashboard data:', err);
       setError('Failed to load dashboard data');
-   }finally {
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,9 +52,7 @@ const AdminDashboard = () => {
         <Spin size='large' />
       </div>
     );
-  if (error)
-    return <p className='text-center text-danger'>{error}</p>;
-
+  if (error) return <p className='text-center text-danger'>{error}</p>;
 
   return (
     <div className='mt-2'>
@@ -89,50 +87,52 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      <div className='text-center table-responsive'>
+      <div className='text-center px-3 px-md-0'>
         <h4 className='mt-5 mb-3 text-primary'>Recent Orders</h4>
-        <table className='table table-striped table-hover w-100 text-center'>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Customer Name</th>
-              <th>Products</th>
-              <th>₹</th>
-              <th>Order Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {dashboardData.recentOrders.length === 0 ? (
+        <div className='table-responsive'>
+          <table className='table table-striped table-hover w-100 text-center'>
+            <thead>
               <tr>
-                <td colSpan='6' className='text-danger text-center'>
-                  No recent orders
-                </td>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Products</th>
+                <th>₹</th>
+                <th>Order Status</th>
               </tr>
-            ) : (
-              dashboardData.recentOrders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td
-                    style={{
-                      color:
-                        order.customerName === 'Unknown' ? 'red' : 'inherit',
-                    }}>
-                    {order.customerName}
-                  </td>
-                  <td>{order.products.join(', ') || 'Deleted product'}</td>
-                  <td>₹{order.totalPrice}</td>
-                  <td
-                    style={{
-                      color:
-                        order.orderStatus === 'Shipped' ? 'blue' : 'inherit',
-                    }}>
-                    {order.orderStatus}
+            </thead>
+            <tbody>
+              {dashboardData.recentOrders.length === 0 ? (
+                <tr>
+                  <td colSpan='6' className='text-danger text-center'>
+                    No recent orders
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                dashboardData.recentOrders.map((order) => (
+                  <tr key={order._id}>
+                    <td>{order._id}</td>
+                    <td
+                      style={{
+                        color:
+                          order.customerName === 'Unknown' ? 'red' : 'inherit',
+                      }}>
+                      {order.customerName}
+                    </td>
+                    <td>{order.products.join(', ') || 'Deleted product'}</td>
+                    <td>₹{order.totalPrice}</td>
+                    <td
+                      style={{
+                        color:
+                          order.orderStatus === 'Shipped' ? 'blue' : 'inherit',
+                      }}>
+                      {order.orderStatus}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
