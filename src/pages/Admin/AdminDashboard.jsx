@@ -96,7 +96,7 @@ const AdminDashboard = () => {
             <tr>
               <th>Order ID</th>
               <th>Customer Name</th>
-              <th>Product</th>
+              <th>Products</th>
               <th>₹</th>
               <th>Order Status</th>
             </tr>

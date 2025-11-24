@@ -23,7 +23,7 @@ const ManageOrders = () => {
             <th>Order ID</th>
             <th>Created Date</th>
             <th>Customer Name</th>
-            <th>Product</th>
+            <th>Products</th>
             <th>₹</th>
             <th>Order Status</th>
             <th>View Details</th>
