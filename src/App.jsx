@@ -20,6 +20,8 @@ import ManageOrders from './pages/Admin/ManageOrders';
 import ManageUsers from './pages/Admin/ManageUsers';
 import OrderDetails from './pages/Admin/OrderDetails';
 import NotFound from './pages/NotFound';
+import UserProfile from './pages/UserProfile';
+import AdminProfile from './pages/Admin/AdminProfile';
 
 const App = () => {
   return (
@@ -35,6 +37,14 @@ const App = () => {
                 element={
                   <ProtectedRoute>        
                     <ChangePassword />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='/profile'
+                element={
+                  <ProtectedRoute>        
+                    <UserProfile />
                   </ProtectedRoute>
                 }
               />
@@ -67,6 +77,15 @@ const App = () => {
                   }
                 />
               </Route>
+                <Route
+                  path='/adminProfile'
+                  element={
+                    <ProtectedRoute>
+                      <AdminProfile />
+                    </ProtectedRoute>
+                  }
+                />
+
               <Route element={<AdminHeaderFooterLayout />}>
                 <Route
                   path='/admin/dashboard'

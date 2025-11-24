@@ -83,6 +83,13 @@ const AdminPopup = () => {
               <LayoutDashboard size={24} color='#0d6efd' className='me-1' />
               Dashboard
             </button>
+            <button
+              className='dropdown-item mt-3 mx-3'
+              onClick={() => {
+                handleNavigate('/adminProfile');
+              }}>
+              <i className='fa-solid fa-crown me-2'></i> My Profile
+            </button>
 
             <button
               className='dropdown-item mt-3 mx-3 '

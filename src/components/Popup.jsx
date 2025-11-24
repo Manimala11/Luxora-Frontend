@@ -74,6 +74,14 @@ const Popup = () => {
             <button
               className='dropdown-item mt-3 mx-3'
               onClick={() => {
+                handleNavigate('/profile');
+              }}>
+              <i className='fa-solid fa-user me-2'></i> My Profile
+            </button>
+
+            <button
+              className='dropdown-item mt-3 mx-3'
+              onClick={() => {
                 handleNavigate('/myOrders');
               }}>
               <i className='fa-solid fa-bag-shopping me-2'></i> My orders
