@@ -58,7 +58,7 @@ const AdminDashboard = () => {
 
   return (
     <div className='mt-2'>
-      <h4 className='text-center mb-4'>Dashboard</h4>
+      <h4 className='text-center mb-4 text-primary'>Dashboard</h4>
       <div className='row d-flex justify-content-evenly text-center'>
         <div
           className='col-md-3 mb-3 mb-md-1 mx-lg-0 p-2 rounded-2 shadow-sm'
@@ -90,8 +90,8 @@ const AdminDashboard = () => {
       </div>
 
       <div className='text-center table-responsive'>
-        <h4 className='mt-5 mb-3'>Recent Orders</h4>
-        <table className='table table-hover w-100 text-center'>
+        <h4 className='mt-5 mb-3 text-primary'>Recent Orders</h4>
+        <table className='table table-striped table-hover w-100 text-center'>
           <thead>
             <tr>
               <th>Order ID</th>

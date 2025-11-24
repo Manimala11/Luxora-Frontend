@@ -67,9 +67,9 @@ const handleDelete = async (productId) => {
   return (
     <div>
       <div className='mt-4 d-block d-md-flex justify-content-between mx-5 mb-3'>
-        <h4>Product Management</h4>
+        <h4 className='text-primary'>Product Management</h4>
         <Button
-          className='btn btn-primary shadow-sm'
+          className='btn btn-primary shadow-sm pb-3'
           onClick={() => setOpenAdd(true)}>
           + Add Product
         </Button>
@@ -113,21 +113,21 @@ const handleDelete = async (productId) => {
           <tbody>
             {loading && (
               <tr>
-                <td colSpan='6' className='text-center text-primary'>
+                <td colSpan='6' className='text-center text-primary fw-bold'>
                   Loading...
                 </td>
               </tr>
             )}
             {!loading && error && (
               <tr>
-                <td colSpan='6' className='text-center text-danger'>
+                <td colSpan='6' className='text-center text-danger fw-bold'>
                   Failed to load products
                 </td>
               </tr>
             )}
             {!loading && !error && currentProducts.length === 0 && (
               <tr>
-                <td colSpan='6' className='text-danger text-center'>
+                <td colSpan='6' className='text-danger text-center fw-bold'>
                   No products found
                 </td>
               </tr>

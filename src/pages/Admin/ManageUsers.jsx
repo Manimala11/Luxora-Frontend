@@ -1,6 +1,6 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../../context/UserContext';
-import {  Popconfirm } from 'antd';
+import { Popconfirm } from 'antd';
 import { toast } from 'react-toastify';
 
 import {
@@ -21,15 +21,30 @@ const ManageUsers = () => {
     user: currentUser,
   } = useContext(UserContext);
 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const fetchUsers = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      await getUsers();
+    } catch (err) {
+      setError('Failed to load users');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    getUsers();
+    fetchUsers();
   }, []);
 
   return (
     <div>
-      <h4 className='text-center mb-3 mt-4'>Users Management</h4>
+      <h4 className='text-center mb-3 mt-4 text-primary'>Users Management</h4>
       <div className='table table-responsive w-100 text-center'>
-        <table className='table  table-hover'>
+        <table className='table table-striped table-hover'>
           <thead>
             <tr>
               <th>User Name</th>
@@ -37,18 +52,44 @@ const ManageUsers = () => {
               <th>Role</th>
               <th>Joined Date</th>
               <th>Status</th>
-              <th>Action</th>
+              <th className='text-start'>Action</th>
             </tr>
           </thead>
 
           <tbody>
-            {users && users.length > 0 ? (
+            {loading && (
+              <tr>
+                <td colSpan='6' className='text-center text-primary fw-bold'>
+                  Loading...
+                </td>
+              </tr>
+            )}
+            {!loading && error && (
+              <tr>
+                <td colSpan='6' className='text-center text-danger fw-bold'>
+                  Failed to load products
+                </td>
+              </tr>
+            )}
+            {!loading && !error && users.length === 0 && (
+              <tr>
+                <td colSpan='6' className='text-danger text-center fw-bold'>
+                  No orders found
+                </td>
+              </tr>
+            )}
+
+            {!loading &&
+              !error &&
               users.map((u) => (
                 <tr key={u._id}>
                   <td>{u.name}</td>
                   <td>{u.email}</td>
                   <td
-                    style={{ color: u.role === 'admin' ? '#b58900' : '#6c757d', fontSize: '20px' }}>
+                    style={{
+                      color: u.role === 'admin' ? '#b58900' : '#6c757d',
+                      fontSize: '20px',
+                    }}>
                     {u.role === 'admin' ? <CrownOutlined /> : <UserOutlined />}
                   </td>
                   <td>{new Date(u.createdAt).toLocaleDateString()}</td>
@@ -70,7 +111,7 @@ const ManageUsers = () => {
                           onConfirm={async () => {
                             try {
                               await blockUser(u._id);
-                              getUsers();
+                              fetchUsers();
                             } catch (err) {
                               console.error(err);
                             }
@@ -113,7 +154,7 @@ const ManageUsers = () => {
                             <DeleteOutlined />
                           </span>
                         </Popconfirm>
-                        {u.role !== 'admin' &&
+                        {u.role !== 'admin' && (
                           <Popconfirm
                             title='Are you sure to make this user an admin?'
                             onConfirm={async () => {
@@ -123,25 +164,23 @@ const ManageUsers = () => {
                               } catch (err) {
                                 console.error(err);
                               }
-                            }}
-                            >
+                            }}>
                             <span
                               className=' me-2'
-                              style={{ cursor: 'pointer', fontSize: '20px', color: '#6c757d' }}>
+                              style={{
+                                cursor: 'pointer',
+                                fontSize: '20px',
+                                color: '#6c757d',
+                              }}>
                               <UserOutlined />
                             </span>
                           </Popconfirm>
-                        }
+                        )}
                       </div>
                     )}
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan='6'>No users found</td>
-              </tr>
-            )}
+              ))}
           </tbody>
         </table>
       </div>
