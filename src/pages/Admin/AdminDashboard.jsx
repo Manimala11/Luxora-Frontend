@@ -57,7 +57,7 @@ const AdminDashboard = () => {
   return (
     <div className='mt-2'>
       <h4 className='text-center mb-4 text-primary'>Dashboard</h4>
-      <div className='row d-flex justify-content-evenly text-center'>
+      <div className='row w-100 d-flex justify-content-evenly text-center'>
         <div
           className='col-md-3 mb-3 mb-md-1 mx-lg-0 p-2 rounded-2 shadow-sm'
           style={{ background: '#FCE4EC', color: '#AD1457' }}>
