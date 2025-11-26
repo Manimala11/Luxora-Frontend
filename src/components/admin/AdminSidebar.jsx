@@ -1,10 +1,11 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 
 const AdminSidebar = () => {
   const location = useLocation();
   const { handleLogout } = useContext(UserContext);
+  const navigate= useNavigate()
 
   return (
     <div>
@@ -81,7 +82,7 @@ const AdminSidebar = () => {
         <div className='p-3 border-top border-secondary'>
           <button
             className='btn btn-danger w-100 d-flex align-items-center justify-content-center'
-            onClick={handleLogout}>
+            onClick={()=> {handleLogout(); setTimeout(navigate('/login'), 300)}}>
             <i className='fa-solid fa-right-from-bracket me-2'></i> Logout
           </button>
         </div>
