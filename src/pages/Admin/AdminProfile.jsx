@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import api from '../../api/api';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { Spin } from 'antd';
 import Profile from '../../assets/images.png'
+import Loader from '../../components/Loader';
 
 const AdminProfile = () => {
   const [admin, setAdmin] = useState(null);
@@ -26,12 +26,7 @@ const AdminProfile = () => {
     }
   };
 
-  if (!admin)
-    return (
-      <div className='d-flex justify-content-center align-items-center text-primary vh-100'>
-        <Spin size='large' />
-      </div>
-    );
+  if (!admin) return <Loader/>
 
   return (
     <div className='container d-flex justify-content-center align-items-center vh-100'>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/api';
-import { Spin } from 'antd';
+import Loader from '../../components/Loader';
 
 const AdminDashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -44,14 +44,7 @@ const AdminDashboard = () => {
     return () => clearInterval(interval);
   }, []);
 
-  if (loading)
-    return (
-      <div
-        className='d-flex justify-content-center align-items-center text-primary'
-        style={{ height: '100vh' }}>
-        <Spin size='large' />
-      </div>
-    );
+  if (loading) return <Loader/>
   if (error) return <p className='text-center text-danger'>{error}</p>;
 
   return (

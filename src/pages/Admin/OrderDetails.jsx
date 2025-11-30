@@ -8,6 +8,7 @@ const OrderDetails = () => {
   const location = useLocation();
   const order = location.state?.order;
   const navigate = useNavigate();
+
   const [status, setStatus] = useState(order?.orderStatus || '');
   const [updating, setUpdating] = useState(false);
   const [pendingStatus, setPendingStatus] = useState(null);
@@ -21,8 +22,9 @@ const OrderDetails = () => {
   }
   const confirmStatusUpdate = async()=>{
     setShowConfirm(false);
-    setStatus(pendingStatus);
+    setUpdating(true)
     const token = localStorage.getItem('token');
+
      try {
       const { data } = await api.patch(
         `/order/updateOrder/${order._id}`,
@@ -30,6 +32,7 @@ const OrderDetails = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (data.success) {
+        setStatus(pendingStatus);
         toast.success('Order status updated successfully!');
       } else {
         toast.error(data.message || 'Failed to update order status');
@@ -38,6 +41,7 @@ const OrderDetails = () => {
       toast.error('Something went wrong while updating order status.');
     }
     setUpdating(false);
+    setPendingStatus(null)
   }
    const cancelStatusUpdate = () => {
     setShowConfirm(false);
@@ -124,6 +128,7 @@ const OrderDetails = () => {
                 <option value='Cancelled'>Cancelled</option>
               </select>
             </Popconfirm>
+             {updating && <span className='ms-2 text-muted'>Updating...</span>}
           </p>
           <p>
             <strong>Payment Info:</strong> {order.paymentInfo}

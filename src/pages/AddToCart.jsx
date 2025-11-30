@@ -9,33 +9,34 @@ const AddToCart = () => {
   const navigate = useNavigate();
 
   const totalPrice = cartItem.reduce(
-    (total, product) =>total +product.price * (product.quantity || 1), 0
+    (total, product) => total + product.price * (product.quantity || 1),
+    0
   );
 
-  if(cartItem.length === 0) {
-    return (
-      <div className='container text-center my-5'>
-        <img src={emptyCart} alt="Empty Cart" width={250} height={200}/>
-        <h4 className='my-3'>Your cart is empty</h4>
-        <button className='btn btn-primary w-25 rounded-0' onClick={()=> navigate('/')}>SHOP NOW</button>
-      </div>
-    );
-  };
-
-  const handleCheckout = ()=>{
-    const orderItems = cartItem.map(item=> ({
+  const handleCheckout = () => {
+    const orderItems = cartItem.map((item) => ({
       product: item._id,
       quantity: item.quantity || 1,
-      selectedSize: item.selectedSize
+      selectedSize: item.selectedSize,
     }));
     console.log('Checkout payload:', { orderItems, totalPrice });
   };
 
-  
-  return (
-    <div className='container'> 
+  return cartItem.length === 0 ? (
+    <div className='container text-center my-5'>
+      <img src={emptyCart} alt='Empty Cart' width={250} height={200} />
+      <h4 className='my-3'>Your cart is empty</h4>
+      <button
+        className='btn btn-primary w-25 rounded-0'
+        onClick={() => navigate('/')}
+      >
+        SHOP NOW
+      </button>
+    </div>
+  ) : (
+    <div className='container'>
       <div className='row'>
-         <ProgressForOrder/>
+        <ProgressForOrder />
         <div className='col-md-8'>
           <h4 className='text-primary text-center my-3'>Product Details</h4>
           <div className='table-responsive '>
@@ -65,20 +66,43 @@ const AddToCart = () => {
                     <td>₹{product.price * (product.quantity || 1)}</td>
                     <td>{product?.selectedSize || '-'}</td>
                     <td>
-                      <div className="d-flex justify-content-center align-items-center">
-                        <button className="btn btn-sm btn-outline-primary me-2" onClick={()=> updateQuantity(product._id,product.selectedSize, 'decrement')}>
+                      <div className='d-flex justify-content-center align-items-center'>
+                        <button
+                          className='btn btn-sm btn-outline-primary me-2'
+                          onClick={() =>
+                            updateQuantity(
+                              product._id,
+                              product.selectedSize,
+                              'decrement'
+                            )
+                          }
+                        >
                           -
                         </button>
-                        <span className="mx-2">{product.quantity || 1}</span>
-                        <button className='btn btn-sm btn-outline-primary ms-2' onClick={()=>updateQuantity(product._id,product.selectedSize, 'increment')}>
+                        <span className='mx-2'>{product.quantity || 1}</span>
+                        <button
+                          className='btn btn-sm btn-outline-primary ms-2'
+                          onClick={() =>
+                            updateQuantity(
+                              product._id,
+                              product.selectedSize,
+                              'increment'
+                            )
+                          }
+                        >
                           +
                         </button>
                       </div>
                     </td>
                     <td>
-                      <button className='btn btn-sm btn-danger' onClick={()=>removeFromCart(product._id, product.selectedSize)}> 
-                            <i className='fa-solid fa-trash fa-sm text-dark'></i>
-                       </button>
+                      <button
+                        className='btn btn-sm btn-danger'
+                        onClick={() =>
+                          removeFromCart(product._id, product.selectedSize)
+                        }
+                      >
+                        <i className='fa-solid fa-trash fa-sm text-dark'></i>
+                      </button>
                     </td>
                   </tr>
                 </tbody>
@@ -106,7 +130,11 @@ const AddToCart = () => {
               </tr>
               <tr>
                 <td colSpan={2}>
-                  <Link className="btn btn-primary w-100" to={'/checkout'} onClick={handleCheckout}>
+                  <Link
+                    className='btn btn-primary w-100'
+                    to={'/checkout'}
+                    onClick={handleCheckout}
+                  >
                     Continue
                   </Link>
                 </td>

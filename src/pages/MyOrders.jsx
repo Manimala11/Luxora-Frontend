@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { Modal, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { scrollToTop } from '../utils/scrollUtils';
+import Loader from '../components/Loader';
 
 const MyOrders = () => {
   const { orders, loadingOrders, getMyOrders } = useContext(OrderContext);
@@ -43,7 +44,7 @@ const MyOrders = () => {
   };
 
   if (loadingOrders) {
-    return <h4 className='text-center mt-4'>Loading Orders...</h4>;
+    return <Loader/>;
   }
 
   if (!orders || orders.length === 0) {

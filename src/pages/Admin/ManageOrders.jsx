@@ -1,5 +1,5 @@
 import useFetch from '../../hooks/useFetch';
-import { Spin, Button } from 'antd';
+import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const ManageOrders = () => {

@@ -1,11 +1,12 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
-import { Spin, Carousel } from 'antd';
+import { Carousel } from 'antd';
 import { CartContext } from '../context/CartContext';
 import { useContext, useState } from 'react';
 import Profile from '../assets/images.png';
 import { toast } from 'react-toastify';
 import { UserContext } from '../context/UserContext';
+import Loader from '../components/Loader';
 
 const ProductDetails = () => {
   const { addToCart } = useContext(CartContext);
@@ -20,14 +21,7 @@ const ProductDetails = () => {
 
   const [selectedSize, setSelectedSize] = useState('');
 
-  if (itemLoading)
-    return (
-      <div
-        className='d-flex justify-content-center align-items-center text-primary'
-        style={{ height: '100vh' }}>
-        <Spin size='large' />
-      </div>
-    );
+  if (itemLoading) return <Loader/>
 
   if (itemError)
     return <p className='text-center text-danger'>Error Loading item</p>;

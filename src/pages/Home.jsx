@@ -3,9 +3,9 @@ import SearchContext from '../context/SearchContext';
 import Products from '../components/Products';
 import Banner from '../components/Banner';
 import useFetch from '../hooks/useFetch';
-import { Spin } from 'antd';
 import CategoryList from '../components/CategoryList';
 import { useLocation } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 const Home = () => {
   const { searchQuery } = useContext(SearchContext);
@@ -47,12 +47,7 @@ const Home = () => {
 
   if (category.loading || products.loading)
     return (
-      <div
-        className='d-flex justify-content-center align-items-center text-primary'
-        style={{ height: '100vh' }}
-      >
-        <Spin size='large' />
-      </div>
+      <Loader />
     );
 
   if (category.error || products.error)

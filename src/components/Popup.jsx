@@ -1,4 +1,4 @@
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 import { scrollToTop } from '../utils/scrollUtils';
 import { useEffect, useState, useContext, useRef } from 'react';
